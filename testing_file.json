@@ -1,11 +1,28 @@
-hello world this is a git testing session.
+module.exports = {
+  preset: 'ts-jest',
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['<rootDir>/setupTests.tsx'],
+  moduleNameMapper: {
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
+    '^.+\\.(css|sass|scss)$': '<rootDir>/__mocks__/styleMock.js',
+    '^.+\\.(jpg|jpeg|png|gif|webp|svg)$': '<rootDir>/__mocks__/fileMock.js',
+    '^next/image$': '<rootDir>/__mocks__/next/image.tsx',
+    '^app/(.*)$': '<rootDir>/src/app/$1',
+    '^features/(.*)$': '<rootDir>/src/features/$1',
+    '^pages/(.*)$': '<rootDir>/src/pages/$1',
+    '^styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^utils/(.*)$': '<rootDir>/src/utils/$1',
+  },
 
-hey In my laptop I have installed a git 
-
-
-
-
-hey I am using the git in server
-
-
-this commit is from gui
+  transform: {
+    '^.+\\.(t|j)sx?$': [
+      'ts-jest',
+      {
+        tsconfig: 'tsconfig.test.json',
+        // Add these babel-like presets
+        babelConfig: true,
+      },
+    ],
+  },
+  transformIgnorePatterns: ['/node_modules/(?!(string-width|strip-ansi)/)'],
+};
